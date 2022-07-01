@@ -1,9 +1,23 @@
 import React, { Component } from 'react';
+import { string } from 'prop-types';
+
+import Header from '../components/Header';
 
 class Favorites extends Component {
   render() {
-    return (<p data-testid="page-favorites">Favorites</p>);
+    const { username } = this.props;
+
+    return (
+      <div data-testid="page-favorites">
+        <Header username={ username } />
+        Favorites
+      </div>
+    );
   }
 }
+
+Favorites.propTypes = {
+  username: string.isRequired,
+};
 
 export default Favorites;

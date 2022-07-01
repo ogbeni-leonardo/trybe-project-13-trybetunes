@@ -1,9 +1,23 @@
 import React, { Component } from 'react';
+import { string } from 'prop-types';
+
+import Header from '../components/Header';
 
 class Album extends Component {
   render() {
-    return (<p data-testid="page-album">Album</p>);
+    const { username } = this.props;
+
+    return (
+      <div data-testid="page-album">
+        <Header username={ username } />
+        Album
+      </div>
+    );
   }
 }
+
+Album.propTypes = {
+  username: string.isRequired,
+};
 
 export default Album;

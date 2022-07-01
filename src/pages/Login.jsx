@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { shape } from 'prop-types';
+import { string, func, shape } from 'prop-types';
 
 import { createUser } from '../services/userAPI';
 
@@ -7,43 +7,42 @@ class Login extends Component {
   constructor() {
     super();
 
-    this.inputChange = this.inputChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
+    this.onButtonClick = this.onButtonClick.bind(this);
 
     this.state = {
-      inputContent: '',
       submitIsDisabled: true,
       loading: false,
     };
   }
 
-  shouldComponentUpdate() {
-    return true;
-  }
-
-  handleClick(event) {
+  onButtonClick(event) {
     event.preventDefault();
 
-    const { inputContent } = this.state;
+    const { username } = this.props;
     const { history: { push } } = this.props;
 
     this.setState(
       { loading: true },
       async () => {
-        await createUser({ name: inputContent });
+        await createUser({ name: username });
         push('/search');
       },
     );
   }
 
-  inputChange({ target: { value } }) {
-    this.setState({ inputContent: value });
-    if (value.trim().length > 2) this.setState({ submitIsDisabled: false });
-    else this.setState({ submitIsDisabled: true });
+  onInputChange(event) {
+    const { target: { value } } = event;
+    const hasValidValue = value.trim().length > 2;
+    this.setState({ submitIsDisabled: !hasValidValue });
+
+    const { handleChange } = this.props;
+    handleChange(event);
   }
 
   render() {
-    const { inputContent, submitIsDisabled, loading } = this.state;
+    const { submitIsDisabled, loading } = this.state;
+    const { username } = this.props;
 
     return (
       <div>
@@ -55,16 +54,17 @@ class Login extends Component {
                 Nome:
                 <input
                   data-testid="login-name-input"
-                  onChange={ this.inputChange }
+                  name="username"
+                  onChange={ this.onInputChange }
                   placeholder="Digite seu nome..."
                   type="text"
-                  value={ inputContent }
+                  value={ username }
                 />
               </label>
 
               <button
                 data-testid="login-submit-button"
-                onClick={ this.handleClick }
+                onClick={ this.onButtonClick }
                 type="submit"
                 disabled={ submitIsDisabled }
               >
@@ -79,6 +79,8 @@ class Login extends Component {
 
 Login.propTypes = {
   history: shape({}).isRequired,
+  username: string.isRequired,
+  handleChange: func.isRequired,
 };
 
 export default Login;
