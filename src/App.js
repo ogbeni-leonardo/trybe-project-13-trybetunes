@@ -34,9 +34,7 @@ class App extends Component {
             <Search />
           </Route>
 
-          <Route exact path="/">
-            <Login />
-          </Route>
+          <Route exact path="/" render={ (props) => <Login { ...props } /> } />
 
           <Route path="*">
             <NotFound />
