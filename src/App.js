@@ -34,7 +34,7 @@ class App extends Component {
 
           <Route
             path="/album/:id"
-            render={ () => <Album username={ username } /> }
+            render={ (props) => <Album { ...props } username={ username } /> }
           />
 
           <Route
