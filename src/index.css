@@ -1,5 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
 * {
+  border: 0;
   box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
   margin: 0;
   padding: 0;
+  outline: none;
+}
+
+::selection {
+  background-color: #16a085;
+  color: whitesmoke;
+}
+
+body {
+  align-items: center;
+  background-color: #353b48;
+  color: #f5f5f5;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+}
+
+button {
+  cursor: pointer;
 }
