@@ -25,7 +25,8 @@ class Album extends Component {
     const { match: { params: { id } } } = this.props;
 
     const albumData = await getMusics(id);
-    this.setState({ albumData });
+    const favoriteSongs = await getFavoriteSongs();
+    this.setState({ albumData, favoriteSongs });
   }
 
   addFavoriteSong(track) {
@@ -33,8 +34,8 @@ class Album extends Component {
       { loading: true },
       () => {
         addSong(track).then(() => {
-          getFavoriteSongs().then((allFavoriteSongs) => {
-            this.setState({ favoriteSongs: allFavoriteSongs, loading: false });
+          getFavoriteSongs().then((favoriteSongs) => {
+            this.setState({ favoriteSongs, loading: false });
           });
         });
       },
