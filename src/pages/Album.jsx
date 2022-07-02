@@ -5,13 +5,13 @@ import Header from '../components/Header';
 import MusicCard from '../components/MusicCard';
 
 import getMusics from '../services/musicsAPI';
-import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
+import { addSong, removeSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class Album extends Component {
   constructor() {
     super();
 
-    this.addFavoriteSong = this.addFavoriteSong.bind(this);
+    this.addOrRemoveFavoriteSong = this.addOrRemoveFavoriteSong.bind(this);
     this.itsFavoriteSong = this.itsFavoriteSong.bind(this);
 
     this.state = {
@@ -29,11 +29,13 @@ class Album extends Component {
     this.setState({ albumData, favoriteSongs });
   }
 
-  addFavoriteSong(track) {
+  addOrRemoveFavoriteSong(track, action) {
+    const func = (action === 'add') ? addSong : removeSong;
+
     this.setState(
       { loading: true },
       () => {
-        addSong(track).then(() => {
+        func(track).then(() => {
           getFavoriteSongs().then((favoriteSongs) => {
             this.setState({ favoriteSongs, loading: false });
           });
@@ -74,7 +76,7 @@ class Album extends Component {
           .filter((_music, index) => index > 0)
           .map((music) => (
             <MusicCard
-              addFavoriteSong={ this.addFavoriteSong }
+              addOrRemoveFavoriteSong={ this.addOrRemoveFavoriteSong }
               favoriteSong={ this.itsFavoriteSong(music) }
               key={ music.trackId }
               track={ music }

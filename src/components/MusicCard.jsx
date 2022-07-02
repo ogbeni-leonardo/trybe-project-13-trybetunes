@@ -14,14 +14,13 @@ class MusicCard extends Component {
     };
   }
 
-  onCheckChange({ target: checked }, track) {
-    const { addFavoriteSong } = this.props;
+  onCheckChange({ target: { checked } }, track) {
+    const { addOrRemoveFavoriteSong } = this.props;
 
     this.setState({ favoriteSong: checked });
 
-    if (checked) {
-      addFavoriteSong(track);
-    }
+    const action = checked ? 'add' : 'remove';
+    addOrRemoveFavoriteSong(track, action);
   }
 
   render() {
@@ -58,9 +57,9 @@ class MusicCard extends Component {
 }
 
 MusicCard.propTypes = {
+  addOrRemoveFavoriteSong: func.isRequired,
   favoriteSong: bool.isRequired,
   track: shape({}).isRequired,
-  addFavoriteSong: func.isRequired,
 };
 
 export default MusicCard;
