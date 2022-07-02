@@ -34,7 +34,12 @@ class App extends Component {
 
           <Route
             path="/album/:id"
-            render={ (props) => <Album { ...props } username={ username } /> }
+            render={ (props) => (
+              <Album
+                { ...props }
+                username={ username }
+              />
+            ) }
           />
 
           <Route
@@ -49,7 +54,11 @@ class App extends Component {
 
           <Route
             path="/favorites"
-            render={ () => <Favorites username={ username } /> }
+            render={ () => (
+              <Favorites
+                username={ username }
+              />
+            ) }
           />
 
           <Route

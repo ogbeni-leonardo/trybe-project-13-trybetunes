@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
 import { string, shape } from 'prop-types';
 
-import Header from '../components/Header';
-import MusicCard from '../components/MusicCard';
-
 import getMusics from '../services/musicsAPI';
 import { addSong, removeSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
+
+import Header from '../components/Header';
+import MusicCard from '../components/MusicCard';
 
 class Album extends Component {
   constructor() {
     super();
 
     this.addOrRemoveFavoriteSong = this.addOrRemoveFavoriteSong.bind(this);
-    this.itsFavoriteSong = this.itsFavoriteSong.bind(this);
 
     this.state = {
-      albumData: [],
-      favoriteSongs: [],
+      albumContent: [],
+      allFavoriteSongs: [],
       loading: false,
     };
   }
@@ -24,62 +23,55 @@ class Album extends Component {
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
 
-    const albumData = await getMusics(id);
-    const favoriteSongs = await getFavoriteSongs();
-    this.setState({ albumData, favoriteSongs });
+    const albumContent = await getMusics(id);
+    const allFavoriteSongs = await getFavoriteSongs();
+    this.setState({ albumContent, allFavoriteSongs });
   }
 
-  addOrRemoveFavoriteSong(track, action) {
-    const func = (action === 'add') ? addSong : removeSong;
+  addOrRemoveFavoriteSong(song, action) {
+    const addOrRemove = (action === 'add') ? addSong : removeSong;
 
     this.setState(
       { loading: true },
-      () => {
-        func(track).then(() => {
-          getFavoriteSongs().then((favoriteSongs) => {
-            this.setState({ favoriteSongs, loading: false });
-          });
+      () => addOrRemove(song).then(() => {
+        getFavoriteSongs().then((favorites) => {
+          this.setState({ allFavoriteSongs: favorites || [], loading: false });
         });
-      },
+      }),
     );
   }
 
-  itsFavoriteSong(track) {
-    const { favoriteSongs } = this.state;
-    return favoriteSongs.some((favorite) => favorite.trackId === track.trackId);
-  }
-
   render() {
-    const { albumData, loading } = this.state;
+    const { albumContent, loading, allFavoriteSongs } = this.state;
     const { username } = this.props;
 
     return (
       <div data-testid="page-album">
         <Header username={ username } />
 
-        { !loading && albumData.length > 0 ? (
+        { !loading && albumContent.length > 0 ? (
           <>
             <p data-testid="artist-name">
               Nome do artista:
               {' '}
-              { albumData[0].artistName }
+              { albumContent[0].artistName }
             </p>
             <p data-testid="album-name">
               Nome do álbum:
               {' '}
-              { albumData[0].collectionName }
+              { albumContent[0].collectionName }
             </p>
           </>
         ) : <p>Carregando...</p> }
 
-        { !loading && albumData
-          .filter((_music, index) => index > 0)
-          .map((music) => (
+        { !loading && albumContent
+          .filter((_song, index) => index > 0)
+          .map((song) => (
             <MusicCard
+              key={ song.trackId }
+              song={ song }
+              allFavoriteSongs={ allFavoriteSongs }
               addOrRemoveFavoriteSong={ this.addOrRemoveFavoriteSong }
-              favoriteSong={ this.itsFavoriteSong(music) }
-              key={ music.trackId }
-              track={ music }
             />
           ))}
       </div>

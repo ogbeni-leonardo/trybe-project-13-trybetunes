@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { shape, func, bool } from 'prop-types';
+import { shape, func, arrayOf } from 'prop-types';
 
 class MusicCard extends Component {
   constructor(props) {
@@ -7,29 +7,33 @@ class MusicCard extends Component {
 
     this.onCheckChange = this.onCheckChange.bind(this);
 
-    const { favoriteSong } = this.props;
-
     this.state = {
-      favoriteSong,
+      favorite: false,
     };
   }
 
-  onCheckChange({ target: { checked } }, track) {
+  componentDidMount() {
+    const { allFavoriteSongs, song: { trackId } } = this.props;
+    const favorite = allFavoriteSongs.some(
+      (favoriteSong) => favoriteSong.trackId === trackId,
+    );
+    this.setState({ favorite });
+  }
+
+  onCheckChange({ target: { checked } }, song) {
     const { addOrRemoveFavoriteSong } = this.props;
 
-    this.setState({ favoriteSong: checked });
-
     const action = checked ? 'add' : 'remove';
-    addOrRemoveFavoriteSong(track, action);
+    addOrRemoveFavoriteSong(song, action);
   }
 
   render() {
-    const { favoriteSong } = this.state;
-    const { track } = this.props;
-    const { trackId, trackName, previewUrl } = track;
+    const { favorite } = this.state;
+    const { song } = this.props;
+    const { trackId, trackName, previewUrl } = song;
 
     return (
-      <div>
+      <li>
         <p>{ trackName }</p>
         <audio
           controls
@@ -43,23 +47,27 @@ class MusicCard extends Component {
         </audio>
         <label htmlFor={ trackId }>
           <input
-            checked={ favoriteSong }
+            checked={ favorite }
             data-testid={ `checkbox-music-${trackId}` }
             id={ trackId }
-            onChange={ (event) => this.onCheckChange(event, track) }
+            onChange={ (event) => this.onCheckChange(event, song) }
             type="checkbox"
           />
           Favorita
         </label>
-      </div>
+      </li>
     );
   }
 }
 
+MusicCard.defaultProps = {
+  allFavoriteSongs: [{}],
+};
+
 MusicCard.propTypes = {
+  song: shape({}).isRequired,
+  allFavoriteSongs: arrayOf(shape({})),
   addOrRemoveFavoriteSong: func.isRequired,
-  favoriteSong: bool.isRequired,
-  track: shape({}).isRequired,
 };
 
 export default MusicCard;
