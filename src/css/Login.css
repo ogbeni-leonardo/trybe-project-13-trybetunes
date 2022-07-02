@@ -1,0 +1,106 @@
+.formLoginContainer {
+  align-items: center;
+  background-image: linear-gradient(to bottom, #eee, #d9e2ef, #b6daec, #8ed4db, #75cbba);
+  background-repeat: no-repeat;
+  box-shadow: var(--shadow);
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+}
+
+.formLogin {
+  background-color: var(--primary);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.titleLoginContainer {
+  background-color: var(--secondary);
+  padding: 60px 40px;
+}
+
+.titleLogin, .titleLogin span {
+  font-size: 2rem;
+  position: relative;
+}
+
+.titleLogin span {
+  color: var(--color-theme);
+}
+
+.titleLogin:before {
+  background-color: var(--color-theme);
+  border-radius: 5px;
+  bottom: -10px;
+  content: '';
+  height: 5px;
+  left: 0;
+  position: absolute;
+  width: 50px;
+}
+
+.userLoginContainer {
+  display: flex;
+  flex-direction: column;
+  padding-block: 40px;
+  padding-inline: 45px;
+  row-gap: 15px;
+}
+
+.loginLabel {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  row-gap: 8px;
+}
+
+.loginLabel input {
+  background-color: var(--secondary);
+  border: 2px solid transparent;
+  border-radius: 5px;
+  height: 38px;
+  padding-inline: 10px;
+  width: 270px;
+}
+
+.loginLabel input:focus {
+  border-color: var(--color-theme);
+}
+
+.remember {
+  column-gap: 5px;
+  cursor: pointer;
+  display: flex;
+  font-size: 0.9rem;
+}
+
+.buttonLogin {
+  align-self: center;
+  background-color: var(--color-theme);
+  border-radius: 5px;
+  color: var(--primary);
+  margin-top: 15px;
+  padding-block: 12px;
+  width: 120px;
+}
+
+.buttonLogin:hover {
+  background-color: var(--color-theme);
+}
+
+.buttonLogin:disabled {
+  background-color: var(--secondary);
+  border-color: var(--secondary);
+  color: var(--dark-color);
+  cursor: not-allowed;
+}
+
+.loadingPage {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+}
