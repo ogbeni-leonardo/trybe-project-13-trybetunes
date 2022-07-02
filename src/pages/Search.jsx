@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { string } from 'prop-types';
 
-import Header from '../components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
+
+import Header from '../components/Header';
+import AlbumCard from '../components/AlbumCard';
+
+import styles from '../css/Search.module.css';
 
 class Search extends Component {
   constructor() {
@@ -59,57 +62,56 @@ class Search extends Component {
     const { username } = this.props;
 
     return (
-      <div data-testid="page-search">
+      <div data-testid="page-search" className={ styles.searchPage }>
         <Header username={ username } />
-        <form>
-          <label htmlFor="search">
-            <input
-              data-testid="search-artist-input"
-              id="search"
-              onChange={ this.onInputChange }
-              placeholder="Digite o nome do álbum ou artista..."
-              type="text"
-              value={ searchInputContent }
-            />
-          </label>
 
-          <button
-            data-testid="search-artist-button"
-            disabled={ searchButtonIsDisabled }
-            onClick={ this.onButtonClick }
-            type="submit"
-          >
-            Pesquisar
-          </button>
+        <form className={ styles.searchForm }>
+          <h1 className={ styles.searchTitle }>Pesquisar</h1>
+
+          <div className={ styles.searchArea }>
+            <label htmlFor="search">
+              <input
+                data-testid="search-artist-input"
+                id="search"
+                onChange={ this.onInputChange }
+                placeholder="Digite o nome do álbum ou artista..."
+                type="text"
+                value={ searchInputContent }
+              />
+            </label>
+
+            <button
+              data-testid="search-artist-button"
+              disabled={ searchButtonIsDisabled }
+              onClick={ this.onButtonClick }
+              type="submit"
+            >
+              Pesquisar
+            </button>
+          </div>
         </form>
 
         <div>
           { lastSearch !== ''
             && albums.length === 0
-            && <p>Nenhum álbum foi encontrado</p> }
+            && !loading
+            && <p className={ styles.errorMessage }>Nenhum álbum foi encontrado.</p> }
 
-          { loading && <p>Carregando...</p> }
+          { loading && <p className={ styles.loadingMessage }>Carregando...</p> }
 
           { !loading && albums.length > 0 && (
-            <p>
+            <p className={ styles.successMessage }>
               Resultado de álbuns de:
               {' '}
-              { lastSearch }
+              <span>{ lastSearch }</span>
             </p>
           ) }
 
-          <u>
-            { albums.map(({ collectionName, collectionId }) => (
-              <li key={ collectionId }>
-                <Link
-                  data-testid={ `link-to-album-${collectionId}` }
-                  to={ `/album/${collectionId}` }
-                >
-                  { collectionName }
-                </Link>
-              </li>
+          <ul className={ styles.albumsContainer }>
+            { albums.map((album) => (
+              <AlbumCard key={ album.collectionId } album={ album } />
             )) }
-          </u>
+          </ul>
         </div>
       </div>
     );

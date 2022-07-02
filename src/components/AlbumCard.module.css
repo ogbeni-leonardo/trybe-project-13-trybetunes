@@ -1,0 +1,52 @@
+.album {
+  background-color: rgba(0 0 0 / 20%);
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0 0 0 / 40%);
+  min-height: 180px;
+  overflow: hidden;
+  transition: 200ms;
+  width: 160px;
+}
+
+.album:hover {
+  transform: scale(1.05);
+}
+
+.imageContainer {
+  background-position: center;
+  background-size: cover;
+  box-shadow: inset 0 0 200px rgba(255 255 255 / 30%);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.imageContainer img {
+  width: 100px;
+}
+
+.infos {
+  padding: 10px;
+}
+
+.albumData {
+  display: flex;
+  flex-direction: column;
+}
+
+.artistName {
+  font-weight: 600;
+  margin-bottom: 3px;
+  margin-top: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.collectionName {
+  font-size: 0.9rem;
+  font-style: italic;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

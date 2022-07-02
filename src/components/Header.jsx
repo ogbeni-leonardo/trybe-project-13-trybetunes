@@ -4,6 +4,8 @@ import { string } from 'prop-types';
 
 import { getUser } from '../services/userAPI';
 
+import styles from './Header.module.css';
+
 class Header extends Component {
   constructor() {
     super();
@@ -25,13 +27,21 @@ class Header extends Component {
     const { loading, userData: { name } } = this.state;
 
     return (
-      <div>
+      <div className={ styles.headerContainer }>
         { loading
-          ? (<p>Carregando...</p>)
+          ? (<p className={ styles.loading }>Carregando...</p>)
           : (
             <header data-testid="header-component">
+              <div className={ styles.headerTitleContainer }>
+                <h1 className={ styles.headerTitle }>
+                  Trybe
+                  <span>Tunes</span>
+                </h1>
+                <p data-testid="header-user-name">{ name }</p>
+              </div>
+
               <nav>
-                <ul>
+                <ul className={ styles.pagesList }>
                   <li>
                     <Link to="/search" data-testid="link-to-search">Search</Link>
                   </li>
@@ -43,7 +53,6 @@ class Header extends Component {
                   </li>
                 </ul>
               </nav>
-              <p data-testid="header-user-name">{ name }</p>
             </header>
           ) }
       </div>

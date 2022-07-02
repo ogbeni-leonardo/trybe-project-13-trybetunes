@@ -49,41 +49,43 @@ class Login extends Component {
     return (
       <div>
         { loading
-          ? (<p>Carregando...</p>)
+          ? (<p className={ styles.loading }>Carregando...</p>)
           : (
-            <form data-testid="page-login" className={ styles.formLogin }>
-              <div className={ styles.titleLoginContainer }>
-                <h1 className={ styles.titleLogin }>
-                  Trybe
-                  <span>Tunes</span>
-                </h1>
-              </div>
+            <div className={ styles.formLoginContainer }>
+              <form data-testid="page-login" className={ styles.formLogin }>
+                <div className={ styles.titleLoginContainer }>
+                  <h1 className={ styles.titleLogin }>
+                    Trybe
+                    <span>Tunes</span>
+                  </h1>
+                </div>
 
-              <div className={ styles.userLoginContainer }>
-                <label htmlFor="name" className={ styles.userLogin }>
-                  Nome:
-                  <input
-                    className={ styles.inputLogin }
-                    data-testid="login-name-input"
-                    name="username"
-                    onChange={ this.onInputChange }
-                    placeholder="Digite seu nome..."
-                    type="text"
-                    value={ username }
-                  />
-                </label>
+                <div className={ styles.userLoginContainer }>
+                  <label htmlFor="name" className={ styles.userLogin }>
+                    Nome:
+                    <input
+                      className={ styles.inputLogin }
+                      data-testid="login-name-input"
+                      name="username"
+                      onChange={ this.onInputChange }
+                      placeholder="Digite seu nome..."
+                      type="text"
+                      value={ username }
+                    />
+                  </label>
 
-                <button
-                  className={ styles.buttonLogin }
-                  data-testid="login-submit-button"
-                  onClick={ this.onButtonClick }
-                  type="submit"
-                  disabled={ submitIsDisabled }
-                >
-                  Entrar
-                </button>
-              </div>
-            </form>
+                  <button
+                    className={ styles.buttonLogin }
+                    data-testid="login-submit-button"
+                    onClick={ this.onButtonClick }
+                    type="submit"
+                    disabled={ submitIsDisabled }
+                  >
+                    Entrar
+                  </button>
+                </div>
+              </form>
+            </div>
           )}
       </div>
     );
