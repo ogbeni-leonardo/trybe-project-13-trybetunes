@@ -95,7 +95,7 @@ class Search extends Component {
           { lastSearch !== ''
             && albums.length === 0
             && !loading
-            && <p className={ styles.errorMessage }>Nenhum álbum foi encontrado.</p> }
+            && <p className={ styles.errorMessage }>Nenhum álbum foi encontrado</p> }
 
           { loading && <p className={ styles.loadingMessage }>Carregando...</p> }
 
@@ -103,7 +103,7 @@ class Search extends Component {
             <p className={ styles.successMessage }>
               Resultado de álbuns de:
               {' '}
-              <span>{ lastSearch }</span>
+              { lastSearch }
             </p>
           ) }
 
