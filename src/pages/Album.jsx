@@ -55,7 +55,7 @@ class Album extends Component {
       <div data-testid="page-album">
         <Header username={ username } />
 
-        { albumData.length > 0 && !loading ? (
+        { !loading && albumData.length > 0 ? (
           <>
             <p data-testid="artist-name">
               Nome do artista:
