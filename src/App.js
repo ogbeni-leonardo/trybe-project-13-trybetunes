@@ -44,7 +44,7 @@ class App extends Component {
 
           <Route
             path="/profile/edit"
-            render={ () => <ProfileEdit username={ username } /> }
+            render={ (props) => <ProfileEdit { ...props } username={ username } /> }
           />
 
           <Route
