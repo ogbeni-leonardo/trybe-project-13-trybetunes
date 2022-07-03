@@ -10,3 +10,4 @@ npm test src/tests/09
 npm test src/tests/10
 npm test src/tests/11
 npm test src/tests/12
+npm test src/tests/13
