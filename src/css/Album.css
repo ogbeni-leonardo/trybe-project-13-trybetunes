@@ -1,0 +1,41 @@
+.album-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.collection-info {
+  align-items: flex-end;
+  background-color: var(--theme);
+  column-gap: 15px;
+  display: flex;
+  margin-top: 5px;
+  padding: 30px 20px;
+}
+
+.collection-info img {
+  width: 150px;
+}
+
+.collection-title-container {
+  color: var(--font-color-light);
+  margin-bottom: 5px;
+}
+
+.collection-title-container h1 {
+  font-size: 1.7rem;
+}
+
+.album-musics-container {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  row-gap: 5px;
+}
+
+.album-loading {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}

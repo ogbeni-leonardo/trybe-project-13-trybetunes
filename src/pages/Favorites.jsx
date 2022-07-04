@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { string } from 'prop-types';
 
 import { removeSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 import Header from '../components/Header';
 import MusicCard from '../components/MusicCard';
+
+import '../css/Favorites.css';
 
 class Favorites extends Component {
   constructor() {
@@ -46,20 +47,23 @@ class Favorites extends Component {
 
   render() {
     const { loading, allFavoriteSongs } = this.state;
-    const { username } = this.props;
 
     return (
-      <div data-testid="page-favorites">
-        <Header username={ username } />
-        { loading && <p id="text">Carregando...</p> }
-        <ul>
+      <div data-testid="page-favorites" className="favorites-page">
+        <Header />
+        <h1 className="favorites-title">Minhas favoritas</h1>
+        <hr />
+
+        { loading && <p className="favorites-loading">Carregando...</p> }
+
+        <ul className="favorite-songs">
           { !loading && allFavoriteSongs
             .map((song) => (
               <MusicCard
                 key={ song.trackId }
                 allFavoriteSongs={ allFavoriteSongs }
                 song={ song }
-                addOrRemoveFavoriteSong={ this.removeFavoriteSong }
+                updateFavoriteSongs={ this.removeFavoriteSong }
               />
             )) }
         </ul>
@@ -67,9 +71,5 @@ class Favorites extends Component {
     );
   }
 }
-
-Favorites.propTypes = {
-  username: string.isRequired,
-};
 
 export default Favorites;

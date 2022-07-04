@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { string, func, shape } from 'prop-types';
+import { shape } from 'prop-types';
 
 import { createUser } from '../services/userAPI';
 
@@ -13,6 +13,7 @@ class Login extends Component {
     this.onButtonClick = this.onButtonClick.bind(this);
 
     this.state = {
+      username: '',
       submitIsDisabled: true,
       loading: false,
     };
@@ -21,49 +22,44 @@ class Login extends Component {
   onButtonClick(event) {
     event.preventDefault();
 
-    const { username, history: { push } } = this.props;
+    const { username } = this.state;
+    const { history: { push } } = this.props;
 
     this.setState(
       { loading: true },
-      async () => {
-        await createUser({ name: username });
-        push('/search');
-      },
+      () => createUser({ name: username })
+        .then(() => push('/search')),
     );
   }
 
-  onInputChange(event) {
-    const { target: { value } } = event;
-    const { handleChange } = this.props;
-
-    const hasValidValue = value.trim().length > 2;
-    this.setState({ submitIsDisabled: !hasValidValue });
-    handleChange(event);
+  onInputChange({ target: { value } }) {
+    const isValid = value.trim().length > 2;
+    this.setState({ username: value, submitIsDisabled: !isValid });
   }
 
   render() {
-    const { loading, submitIsDisabled } = this.state;
-    const { username } = this.props;
+    const { username, submitIsDisabled, loading } = this.state;
 
     return (
-      <div>
+      <div className="login-page">
         { loading
-          ? (<p className="loadingPage">Carregando...</p>)
+          ? (<p className="loading-login">Carregando...</p>)
           : (
-            <div className="formLoginContainer">
-              <form data-testid="page-login" className="formLogin">
-                <div className="titleLoginContainer">
-                  <h1 className="titleLogin">
+            <div className="login-form-container">
+              <form data-testid="page-login" className="login-form">
+                <div className="login-title-container">
+                  <h1 className="login-title">
                     Trybe
                     <span>Tunes</span>
                   </h1>
                 </div>
 
-                <div className="userLoginContainer">
-                  <label htmlFor="name" className="loginLabel">
+                <div className="user-login-container">
+                  <label htmlFor="username" className="login-label">
                     Usuário:
                     <input
                       data-testid="login-name-input"
+                      id="username"
                       name="username"
                       onChange={ this.onInputChange }
                       placeholder="Seu nome de usuário"
@@ -72,7 +68,7 @@ class Login extends Component {
                     />
                   </label>
 
-                  <label htmlFor="password" className="loginLabel">
+                  <label htmlFor="password" className="login-label">
                     Senha:
                     <input
                       name="password"
@@ -81,7 +77,7 @@ class Login extends Component {
                     />
                   </label>
 
-                  <label htmlFor="remember" className="remember">
+                  <label htmlFor="remember" className="login-remember">
                     <input
                       id="remember"
                       name="remember"
@@ -91,7 +87,7 @@ class Login extends Component {
                   </label>
 
                   <button
-                    className="buttonLogin"
+                    className="login-button"
                     data-testid="login-submit-button"
                     onClick={ this.onButtonClick }
                     type="submit"
@@ -110,8 +106,6 @@ class Login extends Component {
 
 Login.propTypes = {
   history: shape({}).isRequired,
-  username: string.isRequired,
-  handleChange: func.isRequired,
 };
 
 export default Login;

@@ -10,61 +10,22 @@ import ProfileEdit from './pages/ProfileEdit';
 import NotFound from './pages/NotFound';
 
 class App extends Component {
-  constructor() {
-    super();
-
-    this.handleChange = this.handleChange.bind(this);
-
-    this.state = {
-      username: '',
-    };
-  }
-
-  handleChange({ target }) {
-    const { name, value } = target;
-    this.setState({ [name]: value });
-  }
-
   render() {
-    const { username } = this.state;
-
     return (
       <Router>
         <Switch>
 
           <Route
             path="/album/:id"
-            render={ (props) => (
-              <Album
-                { ...props }
-                username={ username }
-              />
-            ) }
+            render={ (props) => <Album { ...props } /> }
           />
-
           <Route
             path="/profile/edit"
-            render={ (props) => <ProfileEdit { ...props } username={ username } /> }
+            render={ (props) => <ProfileEdit { ...props } /> }
           />
-
-          <Route
-            path="/profile"
-            render={ () => <Profile username={ username } /> }
-          />
-
-          <Route
-            path="/favorites"
-            render={ () => (
-              <Favorites
-                username={ username }
-              />
-            ) }
-          />
-
-          <Route
-            path="/search"
-            render={ () => <Search username={ username } /> }
-          />
+          <Route path="/profile" component={ () => <Profile /> } />
+          <Route path="/favorites" component={ () => <Favorites /> } />
+          <Route path="/search" component={ () => <Search /> } />
 
           <Route
             exact
@@ -72,7 +33,6 @@ class App extends Component {
             render={ (props) => (
               <Login
                 { ...props }
-                username={ username }
                 handleChange={ this.handleChange }
               />
             ) }

@@ -1,55 +1,80 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { string } from 'prop-types';
 
 import { getUser } from '../services/userAPI';
 
-import styles from './Header.module.css';
+import './Header.css';
 
 class Header extends Component {
   constructor() {
     super();
 
     this.state = {
-      loading: true,
-      userData: '',
+      user: {},
+      loading: false,
     };
   }
 
-  async componentDidMount() {
-    const { username } = this.props;
-
-    const userData = await getUser(username);
-    this.setState({ loading: false, userData });
+  componentDidMount() {
+    this.setState(
+      { loading: true },
+      () => getUser().then((user) => this.setState({ user, loading: false })),
+    );
   }
 
   render() {
-    const { loading, userData: { name } } = this.state;
+    const { loading, user: { name } } = this.state;
 
     return (
-      <div className={ styles.headerContainer }>
+      <div className="header-container">
         { loading
-          ? (<p className={ styles.loading }>Carregando...</p>)
+          ? <p className="header-loading">Carregando...</p>
           : (
-            <header data-testid="header-component">
-              <div className={ styles.headerTitleContainer }>
-                <h1 className={ styles.headerTitle }>
+            <header className="header" data-testid="header-component">
+              <div className="header__title-container">
+                <h1 className="header__title">
                   Trybe
                   <span>Tunes</span>
                 </h1>
-                <p data-testid="header-user-name">{ name }</p>
+                <p
+                  className="header__username"
+                  data-testid="header-user-name"
+                >
+                  <span>Olá,</span>
+                  {' '}
+                  { name }
+                  {'!'}
+                </p>
               </div>
 
               <nav>
-                <ul className={ styles.pagesList }>
+                <ul className="header__pages-list">
                   <li>
-                    <Link to="/search" data-testid="link-to-search">Search</Link>
+                    <Link
+                      className="page-link"
+                      data-testid="link-to-search"
+                      to="/search"
+                    >
+                      Buscar
+                    </Link>
                   </li>
                   <li>
-                    <Link to="/favorites" data-testid="link-to-favorites">Favorites</Link>
+                    <Link
+                      className="page-link"
+                      data-testid="link-to-favorites"
+                      to="/favorites"
+                    >
+                      Favoritas
+                    </Link>
                   </li>
                   <li>
-                    <Link to="/profile" data-testid="link-to-profile">Profile</Link>
+                    <Link
+                      className="page-link"
+                      to="/profile"
+                      data-testid="link-to-profile"
+                    >
+                      Meu Perfil
+                    </Link>
                   </li>
                 </ul>
               </nav>
@@ -59,9 +84,5 @@ class Header extends Component {
     );
   }
 }
-
-Header.propTypes = {
-  username: string.isRequired,
-};
 
 export default Header;

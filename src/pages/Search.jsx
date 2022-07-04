@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { string } from 'prop-types';
 
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 
 import Header from '../components/Header';
 import AlbumCard from '../components/AlbumCard';
 
-import styles from '../css/Search.module.css';
+import '../css/Search.css';
 
 class Search extends Component {
   constructor() {
@@ -16,8 +15,8 @@ class Search extends Component {
     this.onButtonClick = this.onButtonClick.bind(this);
 
     this.state = {
-      searchInputContent: '',
-      searchButtonIsDisabled: true,
+      search: '',
+      buttonIsDisabled: true,
       albums: [],
       lastSearch: '',
       loading: false,
@@ -25,26 +24,22 @@ class Search extends Component {
   }
 
   onInputChange({ target: { value } }) {
-    const hasValidValue = value.trim().length > 1;
-
-    this.setState({
-      searchInputContent: value,
-      searchButtonIsDisabled: !hasValidValue,
-    });
+    const isValid = value.trim().length > 1;
+    this.setState({ search: value, buttonIsDisabled: !isValid });
   }
 
   onButtonClick(event) {
     event.preventDefault();
 
-    const { searchInputContent } = this.state;
+    const { search } = this.state;
 
     this.setState(
-      { loading: true },
-      () => searchAlbumsAPI(searchInputContent)
-        .then((data) => this.setState({
-          albums: data,
-          lastSearch: searchInputContent,
-          searchInputContent: '',
+      () => ({ loading: true, lastSearch: search }),
+      () => searchAlbumsAPI(search)
+        .then((albums) => this.setState({
+          albums,
+          search: '',
+          buttonIsDisabled: true,
           loading: false,
         })),
     );
@@ -52,37 +47,35 @@ class Search extends Component {
 
   render() {
     const {
-      searchInputContent,
-      searchButtonIsDisabled,
+      search,
+      buttonIsDisabled,
       albums,
       lastSearch,
       loading,
     } = this.state;
 
-    const { username } = this.props;
-
     return (
-      <div data-testid="page-search" className={ styles.searchPage }>
-        <Header username={ username } />
+      <div data-testid="page-search" className="search-page">
+        <Header />
 
-        <form className={ styles.searchForm }>
-          <h1 className={ styles.searchTitle }>Pesquisar</h1>
+        <form className="search-form">
+          <h1 className="search-form-title">Buscar</h1>
 
-          <div className={ styles.searchArea }>
+          <div className="search-area">
             <label htmlFor="search">
               <input
                 data-testid="search-artist-input"
                 id="search"
                 onChange={ this.onInputChange }
-                placeholder="Digite o nome do álbum ou artista..."
+                placeholder="Digite o nome do álbum ou do artista..."
                 type="text"
-                value={ searchInputContent }
+                value={ search }
               />
             </label>
 
             <button
               data-testid="search-artist-button"
-              disabled={ searchButtonIsDisabled }
+              disabled={ buttonIsDisabled }
               onClick={ this.onButtonClick }
               type="submit"
             >
@@ -95,19 +88,22 @@ class Search extends Component {
           { lastSearch !== ''
             && albums.length === 0
             && !loading
-            && <p className={ styles.errorMessage }>Nenhum álbum foi encontrado</p> }
+            && <p className="search-alert">Nenhum álbum foi encontrado</p> }
 
-          { loading && <p className={ styles.loadingMessage }>Carregando...</p> }
+          { loading && <p className="search-alert">Carregando...</p> }
 
           { !loading && albums.length > 0 && (
-            <p className={ styles.successMessage }>
+            <p className="search-success">
               Resultado de álbuns de:
               {' '}
+              {/* <span>{ lastSearch }</span> */}
+              {/* Não passa nos testes */}
               { lastSearch }
+              {/* Passa nos testes */}
             </p>
           ) }
 
-          <ul className={ styles.albumsContainer }>
+          <ul className="albums-container">
             { albums.map((album) => (
               <AlbumCard key={ album.collectionId } album={ album } />
             )) }
@@ -117,9 +113,5 @@ class Search extends Component {
     );
   }
 }
-
-Search.propTypes = {
-  username: string.isRequired,
-};
 
 export default Search;

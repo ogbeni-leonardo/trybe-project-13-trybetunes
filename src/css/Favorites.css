@@ -1,0 +1,23 @@
+.favorites-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.favorites-title {
+  font-size: 2rem;
+  padding: 40px;
+}
+
+.favorite-songs {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+  margin-inline: 40px;
+  row-gap: 5px;
+}
+
+.favorites-loading {
+  flex-grow: 1;
+  text-align: center;
+}

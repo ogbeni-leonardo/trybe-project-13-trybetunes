@@ -1,0 +1,29 @@
+.song-container {
+  align-items: center;
+  background-color: var(--dark-background);
+  border-radius: 8px;
+  color: var(--font-color-light);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 10px 20px;
+}
+
+.song-container img {
+  border-radius: 5px;
+  width: 60px;
+}
+
+.song-info {
+  flex-grow: 1;
+}
+
+.song-name {
+  font-size: 1.1rem;
+}
+
+.song-container label {
+  column-gap: 5px;
+  cursor: pointer;
+  display: flex;
+}

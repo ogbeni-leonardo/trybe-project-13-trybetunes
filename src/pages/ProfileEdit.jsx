@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { shape, string } from 'prop-types';
+import { shape } from 'prop-types';
 
 import { getUser, updateUser } from '../services/userAPI';
 
@@ -78,13 +78,11 @@ class ProfileEdit extends Component {
       redirect,
     } = this.state;
 
-    const { username } = this.props;
-
     if (redirect) return <Redirect to="/profile" />;
 
     return (
       <div className="page">
-        <Header username={ username } />
+        <Header />
         { loading
           ? <p>Carregando...</p>
           : (
@@ -153,7 +151,6 @@ class ProfileEdit extends Component {
 }
 
 ProfileEdit.propTypes = {
-  username: string.isRequired,
   history: shape({}).isRequired,
 };
 

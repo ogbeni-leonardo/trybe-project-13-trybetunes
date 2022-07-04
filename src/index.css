@@ -12,11 +12,13 @@
 
 :root {
 
-  --color-theme: rgb(22 160 133);
-  --dark-color: rgb(33 33 33);
-  --primary: rgb(238 238 238);
-  --secondary: rgb(224 224 224);
-  --shadow: 0 0 20px rgba(0 0 0 / 50%);
+  --theme: rgb(22 160 133);
+  --primary: rgb(250 250 250);
+  --secondary: rgb(245 245 245);
+  --tertiary: rgb(238 238 238);
+  --dark-background: #383d3b;
+  --font-color-dark: rgb(33 33 33);
+  --font-color-light: rgb(238 238 238);
 }
 
 ::selection {
@@ -25,8 +27,8 @@
 }
 
 body {
-  background-color: #e0e0e0;
-  color: #212121;
+  background-color: var(--primary);
+  color: var(--font-color-dark);
 }
 
 button {
@@ -43,6 +45,5 @@ ul {
 }
 
 a {
-  color: whitesmoke;
   text-decoration: none;
 }

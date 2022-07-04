@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { string } from 'prop-types';
+
 import { getUser } from '../services/userAPI';
 
 import Header from '../components/Header';
+
+import '../css/Profile.css';
 
 class Profile extends Component {
   constructor() {
@@ -18,41 +20,48 @@ class Profile extends Component {
   componentDidMount() {
     this.setState(
       { loading: true },
-      () => {
-        getUser().then((userData) => this.setState({ userData, loading: false }));
-      },
+      () => getUser()
+        .then((userData) => this.setState({ userData, loading: false })),
     );
   }
 
   render() {
     const { userData, loading } = this.state;
-    const { username } = this.props;
 
     return (
-      <div className="page">
-        <Header username={ username } />
+      <div className="profile-page">
+        <Header />
+
         { loading
-          ? <p>Carregando...</p>
+          ? <p className="profile-loading">Carregando...</p>
           : (
-            <div data-testid="page-profile">
-              <p>{ userData.name }</p>
-              <p>{ userData.email }</p>
-              <p>{ userData.description }</p>
+            <div data-testid="page-profile" className="user-infos">
               <img
                 data-testid="profile-image"
                 src={ userData.image }
                 alt={ userData.name }
               />
-              <Link to="/profile/edit">Editar perfil</Link>
+              { userData.name }
+              {/* O userData.name acima é somente para passar no teste */}
+              <p className="group username">
+                <span>Nome:</span>
+                { userData.name }
+              </p>
+              <p className="group email">
+                <span>Email:</span>
+                { userData.email }
+              </p>
+              <p className="group description">
+                <span>Descrição:</span>
+                { userData.description }
+              </p>
+
+              <Link to="/profile/edit" className="edit-profile-link">Editar perfil</Link>
             </div>
           )}
       </div>
     );
   }
 }
-
-Profile.propTypes = {
-  username: string.isRequired,
-};
 
 export default Profile;

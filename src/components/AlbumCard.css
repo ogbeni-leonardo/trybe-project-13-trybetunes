@@ -1,18 +1,15 @@
-.album {
-  background-color: rgba(0 0 0 / 20%);
-  border-radius: 8px;
-  box-shadow: 0 0 5px rgba(0 0 0 / 40%);
-  min-height: 180px;
-  overflow: hidden;
-  transition: 200ms;
+.album-card {
+  background-color: var(--secondary);
+  box-shadow: 0 0 5px rgba(0 0 0 / 25%);
+  transition: transform 180ms;
   width: 160px;
 }
 
-.album:hover {
+.album-card:hover {
   transform: scale(1.05);
 }
 
-.imageContainer {
+.album-card__image-container {
   background-position: center;
   background-size: cover;
   box-shadow: inset 0 0 200px rgba(255 255 255 / 30%);
@@ -21,20 +18,17 @@
   width: 100%;
 }
 
-.imageContainer img {
+.album-card__image-container img {
   width: 100px;
 }
 
-.infos {
-  padding: 10px;
+.album-card__infos {
+  padding: 15px;
+  transform: translateY(-5px);
 }
 
-.albumData {
-  display: flex;
-  flex-direction: column;
-}
-
-.artistName {
+.album-card__name {
+  color: var(--theme);
   font-weight: 600;
   margin-bottom: 3px;
   margin-top: 5px;
@@ -43,7 +37,8 @@
   white-space: nowrap;
 }
 
-.collectionName {
+.album-card__collection {
+  color: var(--font-color-dark);
   font-size: 0.9rem;
   font-style: italic;
   overflow: hidden;
