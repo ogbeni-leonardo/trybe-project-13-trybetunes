@@ -59,7 +59,7 @@
   transition: 100ms;
 }
 
-.page-link:hover {
+.page-link.active, .page-link:hover {
   background-color: var(--theme);
   color: var(--font-color-light);
 }

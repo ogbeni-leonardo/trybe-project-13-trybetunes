@@ -1,0 +1,51 @@
+.edit-loading {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.edit-form {
+  align-self: center;
+  background-color: var(--secondary);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0 0 0 / 10%);
+  display: flex;
+  flex-direction: column;
+  margin-block: 40px;
+  padding: 30px;
+  row-gap: 15px;
+}
+
+.edit-form h1 {
+  align-self: center;
+  margin-bottom: 10px;
+}
+
+.edit-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  row-gap: 5px;
+}
+
+.edit-form label input {
+  background-color: var(--primary);
+  border: 1px solid var(--tertiary);
+  border-radius: 5px;
+  height: 40px;
+  padding-inline: 10px;
+  width: 280px;
+}
+
+.edit-form label input:focus {
+  border-color: var(--theme);
+}
+
+.edit-form button {
+  background-color: var(--theme);
+  border-radius: 5px;
+  color: var(--font-color-light);
+  margin-top: 10px;
+  padding: 10px 20px;
+}

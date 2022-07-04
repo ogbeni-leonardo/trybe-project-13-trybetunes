@@ -47,3 +47,16 @@ ul {
 a {
   text-decoration: none;
 }
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.loading {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}

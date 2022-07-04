@@ -55,8 +55,8 @@ class Search extends Component {
     } = this.state;
 
     return (
-      <div data-testid="page-search" className="search-page">
-        <Header />
+      <div data-testid="page-search" className="page">
+        <Header search="active" />
 
         <form className="search-form">
           <h1 className="search-form-title">Buscar</h1>

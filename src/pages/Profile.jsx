@@ -26,34 +26,35 @@ class Profile extends Component {
   }
 
   render() {
-    const { userData, loading } = this.state;
+    const { userData: { name, email, description, image }, loading } = this.state;
+    const defaultImage = image !== '' ? image : 'https://via.placeholder.com/150';
 
     return (
-      <div className="profile-page">
-        <Header />
+      <div className="page">
+        <Header profile="active" />
 
         { loading
-          ? <p className="profile-loading">Carregando...</p>
+          ? <p className="loading">Carregando...</p>
           : (
             <div data-testid="page-profile" className="user-infos">
               <img
                 data-testid="profile-image"
-                src={ userData.image }
-                alt={ userData.name }
+                src={ defaultImage }
+                alt={ name }
               />
-              { userData.name }
-              {/* O userData.name acima é somente para passar no teste */}
-              <p className="group username">
+              { name }
+              {/* O name acima é somente para passar no teste */}
+              <p className="info-group">
                 <span>Nome:</span>
-                { userData.name }
+                { name }
               </p>
-              <p className="group email">
+              <p className="info-group">
                 <span>Email:</span>
-                { userData.email }
+                { email }
               </p>
-              <p className="group description">
+              <p className="info-group description">
                 <span>Descrição:</span>
-                { userData.description }
+                { description }
               </p>
 
               <Link to="/profile/edit" className="edit-profile-link">Editar perfil</Link>

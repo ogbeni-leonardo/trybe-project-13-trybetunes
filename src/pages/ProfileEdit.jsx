@@ -6,6 +6,8 @@ import { getUser, updateUser } from '../services/userAPI';
 
 import Header from '../components/Header';
 
+import '../css/ProfileEdit.css';
+
 class ProfileEdit extends Component {
   constructor() {
     super();
@@ -28,14 +30,12 @@ class ProfileEdit extends Component {
   componentDidMount() {
     this.setState(
       { loading: true },
-      () => {
-        getUser().then(({ name, email, image, description }) => {
-          this.setState(
-            { name, email, image, description, loading: false },
-            () => this.validateEntries(),
-          );
-        });
-      },
+      () => getUser().then(({ name, email, image, description }) => {
+        this.setState(
+          { name, email, image, description, loading: false },
+          () => this.validateEntries(),
+        );
+      }),
     );
   }
 
@@ -82,68 +82,74 @@ class ProfileEdit extends Component {
 
     return (
       <div className="page">
-        <Header />
+        <Header profile="active" />
+
         { loading
-          ? <p>Carregando...</p>
+          ? <p className="edit-loading">Carregando...</p>
           : (
-            <div data-testid="page-profile-edit">
+            <form data-testid="page-profile-edit" className="edit-form">
+              <h1>Edite suas informações</h1>
               <label htmlFor="editName">
                 Nome:
                 <input
-                  onChange={ this.handleChange }
+                  data-testid="edit-input-name"
                   id="editName"
+                  name="name"
+                  onChange={ this.handleChange }
+                  placeholder="Digite seu nome..."
                   type="text"
                   value={ name }
-                  name="name"
-                  data-testid="edit-input-name"
                 />
               </label>
 
               <label htmlFor="editEmail">
                 E-mail:
                 <input
-                  onChange={ this.handleChange }
+                  data-testid="edit-input-email"
                   id="editEmail"
+                  name="email"
+                  onChange={ this.handleChange }
+                  placeholder="Digite seu e-mail..."
                   type="text"
                   value={ email }
-                  name="email"
-                  data-testid="edit-input-email"
                 />
               </label>
 
               <label htmlFor="editDescription">
                 Descrição:
                 <input
-                  onChange={ this.handleChange }
+                  data-testid="edit-input-description"
                   id="editDescription"
+                  name="description"
+                  onChange={ this.handleChange }
+                  placeholder="Dê mais informações sobre você..."
                   type="text"
                   value={ description }
-                  name="description"
-                  data-testid="edit-input-description"
                 />
               </label>
 
               <label htmlFor="editImage">
                 Imagem:
                 <input
-                  onChange={ this.handleChange }
+                  data-testid="edit-input-image"
                   id="editImage"
+                  name="image"
+                  onChange={ this.handleChange }
+                  placeholder="URL da imagem..."
                   type="text"
                   value={ image }
-                  name="image"
-                  data-testid="edit-input-image"
                 />
               </label>
 
               <button
-                onClick={ this.onButtonClick }
-                type="button"
                 data-testid="edit-button-save"
                 disabled={ saveButtonIsDisabled }
+                onClick={ this.onButtonClick }
+                type="button"
               >
                 Salvar
               </button>
-            </div>
+            </form>
           )}
       </div>
     );

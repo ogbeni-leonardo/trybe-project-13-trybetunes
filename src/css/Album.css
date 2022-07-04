@@ -1,10 +1,4 @@
-.album-page {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.collection-info {
+.album-info {
   align-items: flex-end;
   background-color: var(--theme);
   column-gap: 15px;
@@ -13,29 +7,23 @@
   padding: 30px 20px;
 }
 
-.collection-info img {
+.album-info img {
   width: 150px;
 }
 
-.collection-title-container {
+.album-title {
   color: var(--font-color-light);
   margin-bottom: 5px;
 }
 
-.collection-title-container h1 {
-  font-size: 1.7rem;
+.album-title h1 {
+  font-size: 2rem;
 }
 
-.album-musics-container {
+.album-songs {
   display: flex;
   flex-direction: column;
   padding: 30px;
   row-gap: 5px;
 }
 
-.album-loading {
-  align-items: center;
-  display: flex;
-  flex-grow: 1;
-  justify-content: center;
-}

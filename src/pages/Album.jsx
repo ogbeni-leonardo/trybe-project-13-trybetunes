@@ -47,17 +47,17 @@ class Album extends Component {
     const { albumContent, loading, allFavoriteSongs } = this.state;
 
     return (
-      <div data-testid="page-album" className="album-page">
+      <div data-testid="page-album" className="page">
         <Header />
 
         { !loading && albumContent.length > 0 ? (
-          <div className="collection-info">
+          <div className="album-info">
             <img
               src={ albumContent[0].artworkUrl100 }
               alt={ albumContent[0].collectionName }
             />
 
-            <div className="collection-title-container">
+            <div className="album-title">
               <h1 data-testid="artist-name">
                 { albumContent[0].artistName }
               </h1>
@@ -67,9 +67,9 @@ class Album extends Component {
               </p>
             </div>
           </div>
-        ) : <p className="album-loading">Carregando...</p> }
+        ) : <p className="loading">Carregando...</p> }
 
-        <ul className="album-musics-container">
+        <ul className="album-songs">
           { !loading && albumContent
             .filter((_song, index) => index > 0)
             .map((song) => (

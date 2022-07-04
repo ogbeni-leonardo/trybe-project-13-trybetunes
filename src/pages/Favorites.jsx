@@ -49,12 +49,11 @@ class Favorites extends Component {
     const { loading, allFavoriteSongs } = this.state;
 
     return (
-      <div data-testid="page-favorites" className="favorites-page">
-        <Header />
-        <h1 className="favorites-title">Minhas favoritas</h1>
-        <hr />
+      <div data-testid="page-favorites" className="page">
+        <Header favorites="active" />
+        <h1 className="favorite-title">Minhas favoritas</h1>
 
-        { loading && <p className="favorites-loading">Carregando...</p> }
+        { loading && <p className="loading">Carregando...</p> }
 
         <ul className="favorite-songs">
           { !loading && allFavoriteSongs

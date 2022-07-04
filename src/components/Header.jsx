@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { string } from 'prop-types';
 
 import { getUser } from '../services/userAPI';
 
@@ -24,6 +25,7 @@ class Header extends Component {
 
   render() {
     const { loading, user: { name } } = this.state;
+    const { search, favorites, profile } = this.props;
 
     return (
       <div className="header-container">
@@ -51,7 +53,7 @@ class Header extends Component {
                 <ul className="header__pages-list">
                   <li>
                     <Link
-                      className="page-link"
+                      className={ `page-link ${search}` }
                       data-testid="link-to-search"
                       to="/search"
                     >
@@ -60,7 +62,7 @@ class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      className="page-link"
+                      className={ `page-link ${favorites}` }
                       data-testid="link-to-favorites"
                       to="/favorites"
                     >
@@ -69,7 +71,7 @@ class Header extends Component {
                   </li>
                   <li>
                     <Link
-                      className="page-link"
+                      className={ `page-link ${profile}` }
                       to="/profile"
                       data-testid="link-to-profile"
                     >
@@ -84,5 +86,17 @@ class Header extends Component {
     );
   }
 }
+
+Header.defaultProps = {
+  search: '',
+  favorites: '',
+  profile: '',
+};
+
+Header.propTypes = {
+  search: string,
+  favorites: string,
+  profile: string,
+};
 
 export default Header;
