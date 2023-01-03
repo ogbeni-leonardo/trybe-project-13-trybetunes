@@ -1,13 +1,29 @@
-# :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
+# TrybeTunes
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
+O **TrybeTunes** consiste numa aplicação criada em React capaz de reproduzir prévias de músicas das mais variadas bandas e artistas, criar uma lista de músicas favoritas e editar o perfil da pessoa usuária logada.
 
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+## Recursos
+
+- Fazer login;
+- Pesquisar por uma banda ou artista;
+- Listar os álbuns disponíveis dessa banda ou artista;
+- Visualizar as músicas de um álbum selecionado;
+- Reproduzir uma prévia das músicas deste álbum;
+- Favoritar e desfavoritar músicas;
+- Ver a lista de músicas favoritas;
+- Ver o perfil da pessoa logada;
+- Editar o perfil da pessoa logada.
+
+## Requisitos
+
+Para utilizar esta aplicação você precisa:
+
+- Ter o `nodejs (v16)` instalado em sua máquina;
+- Ter um navegador web atualizado.
+
+## Uso
+
+Para iniciar a aplicação você precisa:
+
+- Na pasta raiz da aplicação digitar o comando: `npm install` (instalar as dependências);
+- Após a instalação das dependências, execute a aplicação com o comando: `npm start`.
